@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	<!-- 扫描注解，这样com.mobile包下的文件都能被扫描 -->
+	<context:component-scan base-package="com.mobile"/>
+	<!-- 使用Annotation自动注册Bean,扫描@Controller和@ControllerAdvice-->
+	<context:component-scan base-package="com.mobile" use-default-filters="false">
+		<!-- base-package 如果多个，用“,”分隔 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常-->
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+	<!-- 开启SpringMVC注解模式 -->
+	<mvc:annotation-driven/>
+	<!-- 静态资源默认servlet配置 -->
+	<!--<mvc:default-servlet-handler/>-->
+	<mvc:resources location="/" mapping="/**/*.html"/>
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.jpg"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+	<!-- 配置返回视图的路径，以及识别后缀是jsp文件 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+</beans>

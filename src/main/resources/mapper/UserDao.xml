@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mobile.dao.user.IUserDao">
+	<insert id="insertUser" parameterType="com.mobile.model.user.User">
+		insert into user(job_id,
+		                 uname,
+		                 password)
+		value (#{job_id}, #{uname}, #{password});
+	</insert>
+	
+	<select id="selectUser" resultType="com.mobile.model.user.User" parameterType="long">
+		SELECT *
+		FROM user
+		WHERE uid = #{uid}
+	</select>
+	
+	<select id="selectUserByName" resultType="com.mobile.model.user.User" parameterType="String">
+		SELECT *
+		FROM user
+		where uname = #{uname}
+	</select>
+
+</mapper>
